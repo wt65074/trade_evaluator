@@ -1,3 +1,4 @@
+# typed: true
 class ValueModelPick < ApplicationRecord
-  belongs_to :model
+  belongs_to :value_model
 end

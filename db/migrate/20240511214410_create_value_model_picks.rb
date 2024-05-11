@@ -1,10 +1,10 @@
 class CreateValueModelPicks < ActiveRecord::Migration[7.1]
   def change
     create_table :value_model_picks do |t|
-      t.references :model, null: false, foreign_key: true
+      t.references :value_model, null: false, foreign_key: true
       t.integer :pick
       t.decimal :value
-      t.index [:pick, :model], unique: true
+      t.index [:pick, :value_model_id], unique: true
 
       t.timestamps
     end
