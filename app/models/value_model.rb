@@ -1,0 +1,2 @@
+class ValueModel < ApplicationRecord
+end
