@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <main> 
+      <div class="flex shadow-sm py-4 flex-row items-center px-4 justify-between">
+        <div class="grow-0">
+          <h1 class="text-2xl font-mono font-bold block hover:underline no-underline"><%= link_to "Trade Evaluator", root_path %></h1>
+          </div>
+
+<div class="flex space-x-8">
+        <span class="font-mono align-middle">
+          Models
+          </span>
+                 <span class="font-mono">
+          Trades
+          </span>
+                 <span class="font-mono">
+          Etc
+          </span>
+          </div>
+        </div>
+      <%= yield %>
+    </main>
   </body>
 </html>

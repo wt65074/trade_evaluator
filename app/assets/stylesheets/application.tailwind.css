@@ -1,0 +1,12 @@
+@tailwind base;
+
+
+@layer base {
+  body {
+    @apply mx-0 mt-0
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
