@@ -19,14 +19,28 @@
       </ul>
     </h2>
 
-    <span class="rounded">
-      <%= form_with url: models_create_path, multipart: true do |form| %>
-        <%= file_field_tag "file", allow: "text/csv" %>
-        <%= form.label :title, "Name:" %>
-        <%= form.text_field :title %>
-        <%= form.submit "Search" %>
-      <% end %>
-    </span>
+    <%= form_with url: models_create_path, multipart: true, local: true do |form| %>
+      <div class="rounded space-y-4">
+        <div>
+          <%= file_field_tag "file", allow: "text/csv", required: true %>
+
+          <% @model.errors.full_messages_for(:base).each do |message| %>
+            <div class="text-xs text-red-600"><%= message %></div>
+          <% end %>
+        </div>
+        <div>
+          <%= form.label :title, "Name:" %>
+          <%= form.text_field :title, required: true %>
+          <% @model.errors.full_messages_for(:name).each do |message| %>
+            <div class="text-xs text-red-600"><%= message %></div>
+          <% end %>
+        </div>
+        <%= form.submit "Create",
+                    class:
+                      "bg-black font-large font-mono text-white px-4 py-2 hover:shadow-lg disabled:bg-blue" %>
+
+      </div>
+    <% end %>
 
   </div>
 </div>

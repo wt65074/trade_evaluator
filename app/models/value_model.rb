@@ -4,6 +4,8 @@ require 'csv'
 class ValueModel < ApplicationRecord
   has_many :value_model_pick
 
+  validates :name, uniqueness: { message: 'Must choose a unique model name' }
+
   def to_csv
     CSV.generate do |csv|
       column_names = %w[pick value]
