@@ -12,8 +12,9 @@
   </head>
 
   <body>
-    <main> 
-      <div class="flex shadow-sm py-4 flex-row items-center px-4 justify-between">
+    <main class="h-screen"> 
+      <div class="flex flex-col h-full">
+      <div class="flex shadow-sm py-4 flex-row items-center px-4 justify-between flex-shrink-0">
         <div class="grow-0">
           <h1 class="text-2xl font-mono font-bold block hover:underline no-underline"><%= link_to "Trade Evaluator", root_path %></h1>
           </div>
@@ -30,7 +31,10 @@
           </span>
           </div>
         </div>
+        <div class="flex-shrink overflow-scroll">
       <%= yield %>
+      </div>
+      </div>
     </main>
   </body>
 </html>
