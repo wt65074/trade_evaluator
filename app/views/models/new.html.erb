@@ -1,0 +1,32 @@
+<div class="self-center items-center flex flex-col space-y-8 my-16">
+  <div class="flex items-center flex-col">
+    <h1 class="font-bold font-mono text-4xl mb-2">New Model</h1>
+    <h2 class="font-medium font-mono text-s text-slate-800 text-center mb-8">
+      Expected file format:
+      <ul>
+        <li>
+          * CSV File
+        </li>
+        <li>
+          * Headers included, "pick", "value"
+        </li>
+        <li>
+          * Pick is first row, value is overall pick
+        </li>
+        <li>
+          * Value is second row, expressed as number
+        </li>
+      </ul>
+    </h2>
+
+    <span class="rounded">
+      <%= form_with url: models_create_path, multipart: true do |form| %>
+        <%= file_field_tag "file", allow: "text/csv" %>
+        <%= form.label :title, "Name:" %>
+        <%= form.text_field :title %>
+        <%= form.submit "Search" %>
+      <% end %>
+    </span>
+
+  </div>
+</div>
