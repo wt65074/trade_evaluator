@@ -2,9 +2,9 @@
 
 require 'csv'
 class ValueModel < ApplicationRecord
-  has_many :value_model_pick
+  has_many :value_model_pick, dependent: :delete_all
 
-  validates :name, uniqueness: { message: 'Must choose a unique model name' }
+  validates :name, uniqueness: { message: 'must be unique' }
 
   def to_csv
     CSV.generate do |csv|

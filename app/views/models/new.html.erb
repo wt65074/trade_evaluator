@@ -1,5 +1,5 @@
 <div class="self-center items-center flex flex-col space-y-8 my-16">
-  <div class="flex items-center flex-col">
+  <div class="flex items-center flex-col max-w-1/2">
     <h1 class="font-bold font-mono text-4xl mb-2">New Model</h1>
     <h2 class="font-medium font-mono text-s text-slate-800 text-center mb-8">
       Expected file format:
@@ -16,21 +16,25 @@
         <li>
           * Value is second row, expressed as number
         </li>
+        <li>
+          * 262 rows, which includes 39 compensatory picks even though this
+          tool doesn't really support that.
+        </li>
       </ul>
     </h2>
 
     <%= form_with url: models_create_path, multipart: true, local: true do |form| %>
-      <div class="rounded space-y-4">
+      <div class="rounded space-y-4 font-mono flex flex-col items-center">
         <div>
           <%= file_field_tag "file", allow: "text/csv", required: true %>
 
           <% @model.errors.full_messages_for(:base).each do |message| %>
-            <div class="text-xs text-red-600"><%= message %></div>
+            <div class="text-xs text-red-600 mt-2"><%= message %></div>
           <% end %>
         </div>
         <div>
-          <%= form.label :title, "Name:" %>
-          <%= form.text_field :title, required: true %>
+          <%= form.label :title, "Model Name:" %>
+          <%= form.text_field :title, required: true, class: "border-2 border-black" %>
           <% @model.errors.full_messages_for(:name).each do |message| %>
             <div class="text-xs text-red-600"><%= message %></div>
           <% end %>

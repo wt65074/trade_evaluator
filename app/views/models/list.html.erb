@@ -7,9 +7,7 @@
         class="hover:underline text-link"
         href="https://raw.githubusercontent.com/leesharpe/nfldata/master/data/draft_values.csv"
       >
-        this kind github
-      </a>
-      .<br/>
+        this kind github</a>.<br/>
       You can add new models
       <%= link_to "here", models_new_path, class: "text-link hover:underline" %>.
     </h2>
@@ -27,8 +25,17 @@
         <td class="font-medium font-mono border px-1">
           <%= model.name %>
         </td>
-        <td class="text-link font-mono hover:underline px-2 border">
-          <%= link_to "Download", models_download_path(model.id) %>
+        <td class="font-mono px-2 border space-x-2">
+          <%= link_to "Download",
+          models_download_path(model.id),
+          class: "text-link hover:underline" %>
+          <%= link_to "Delete",
+          models_delete_path(model.id),
+          class: "text-link-destructive hover:underline",
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?",
+          } %>
         </td>
       </tr>
     <% end %>

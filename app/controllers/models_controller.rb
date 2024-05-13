@@ -15,8 +15,9 @@ class ModelsController < ApplicationController
     @model = ValueModel.new(name: params[:title])
     csv_text = File.read(params[:file])
     csv = CSV.parse(csv_text, headers: true)
-    if csv.length != 32 * 7
-      @model.errors.add(:base, "File must have exactly #{32 * 7} rows")
+    puts csv.length
+    if csv.length != 262
+      @model.errors.add(:base, 'File must have exactly 262 rows')
       render :new, status: :unprocessable_entity
       return
     end
@@ -33,6 +34,12 @@ class ModelsController < ApplicationController
   def download
     model = ValueModel.find(params[:id])
     send_data model.to_csv, filename: "#{model.name}-model.csv"
+  end
+
+  def delete
+    model = ValueModel.find(params[:id])
+    model.destroy
+    redirect_to models_list_path
   end
 
   private

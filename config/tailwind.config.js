@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         link: {
           DEFAULT: colors.blue[500],
+          destructive: colors.red[500]
         }
       }
     },

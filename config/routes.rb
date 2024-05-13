@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'trade/show'
   get 'trade/new'
   post 'models/new' => 'models#create', as: 'models_create'
+  delete 'models/:id/delete' => 'models#delete', as: 'models_delete'
   get 'models/:id/download' => 'models#download', as: 'models_download'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
