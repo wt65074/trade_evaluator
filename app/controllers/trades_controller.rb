@@ -29,7 +29,7 @@ class TradesController < ApplicationController
   end
 
   def index
-    @trades = Trade.all
+    @trades = Trade.all.order('created_at DESC')
     @models = ValueModel.all
   end
 
