@@ -27,15 +27,9 @@
         </td>
         <% @models.each do |model| %>
           <% model_score = trade.all_model_scores[model.id] %>
-          <td class="border px-1 py-4 font-mono text-xs"><span
-              class="<%= model_score[0] > model_score[1] ? 'text-green-500 font-bold' : ''%>"
-            ><%= model_score[0] %>
-            </span>
-            -
-            <span
-              class="<%= model_score[1] > model_score[0] ? 'text-green-500 font-bold' : ''%>"
-            ><%= model_score[1] %>
-            </span>
+          <td class="border px-1 py-4 font-mono text-xs">
+            <%= model_score[0] > model_score[1] ? "Team A" : "Team B" %>
+            <%= "+#{(model_score[0] - model_score[1]).abs}" %>
           </td>
         <% end %>
         <td class="border px-1 py-4 font-mono text-xs text-link">

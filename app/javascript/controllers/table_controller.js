@@ -58,9 +58,9 @@ export default class extends Controller {
       const valueA = picksA.map(pick => Number(model.values[pick])).reduce((acc, val) => acc + val, 0)
       const valueB = picksB.map(pick => Number(model.values[pick])).reduce((acc, val) => acc + val, 0)
 
-      targetScoreA.textContent = Math.round(100 * valueA) / 100
-      targetScoreB.textContent = Math.round(100 * valueB) / 100
-      if (valueA > valueB) {
+      targetScoreA.textContent = `${valueB - valueA > 0 ? '+' : ''}${Math.round(100 * (valueB - valueA)) / 100}`
+      targetScoreB.textContent = `${valueA - valueB > 0 ? '+' : ''}${Math.round(100 * (valueA - valueB)) / 100}`
+      if (valueB > valueA) {
         targetScoreA.classList.add("bg-green-100")
         targetScoreB.classList.remove("bg-green-100")
       } else {

@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Running
+Im running on Ruby 3.3.1.
 
-Things you may want to cover:
+Create the DBs:
+```rails db:migrate```
 
-* Ruby version
+Seed the trade value models:
+```rails models:seed_models```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Seed the draft schedule:
+```bin/rails "picks:seed_picks[{year},{absolute path to csv}]"```
