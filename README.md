@@ -16,6 +16,7 @@ Run the server:
 ```rails server```
 
 # Demo
+The demo video has a messed up table showing the round and overall. Fixed that an will fix videos.
 ## Create A Trade
 
 https://github.com/wt65074/trade_evaluator/assets/6855641/5dec9a1e-5502-4ef2-8862-74ef121776b8
