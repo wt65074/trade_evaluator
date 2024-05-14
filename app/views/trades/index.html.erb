@@ -40,6 +40,12 @@
         <% end %>
         <td class="border px-1 py-4 font-mono text-xs text-link">
           <%= link_to "Load", trade_path(trade), class: "text-link hover:underline" %>
+          <%= link_to "Delete",
+          trade_path(trade),
+          data: {
+            "turbo-method": :delete,
+          },
+          class: "text-link-destructive hover:underline" %>
         </td>
       </tr>
     <% end %>
