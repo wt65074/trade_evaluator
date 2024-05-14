@@ -1,6 +1,9 @@
+# typed: true
+
 class TradesController < ApplicationController
   def show
     @models = ValueModel.all
+    @picks = PicksByTeamAndSeason.where(season: 2024)
     @trade = if params[:id].nil?
                Trade.new
              else
@@ -40,6 +43,6 @@ class TradesController < ApplicationController
     # pretty sure this aint best practice
     params[:trade][:team_a_picks] = params[:trade][:team_a_picks].map(&:to_i)
     params[:trade][:team_b_picks] = params[:trade][:team_b_picks].map(&:to_i)
-    params.require(:trade).permit(team_a_picks: [], team_b_picks: [])
+    params.require(:trade).permit(:team_a, :team_b, team_a_picks: [], team_b_picks: [])
   end
 end

@@ -1,0 +1,2 @@
+class TeamPick < ApplicationRecord
+end
