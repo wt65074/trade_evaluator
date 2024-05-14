@@ -1,0 +1,168 @@
+<div class="self-center items-center flex flex-col space-y-8 my-4">
+  <div class="flex items-center flex-col max-w-1/2">
+    <h1 class="font-bold font-mono text-4xl mb-2">Trades</h1>
+    <h2 class="font-medium font-mono text-s text-slate-800 text-center">
+      Make a trade.
+    </h2>
+  </div>
+  <div
+    data-controller="table"
+    data-table-models-value="<%= @models.map { |m| { "id" => m.id, "values" => m.to_map} }.to_json%>"
+  >
+    <%= form_with model: @trade, data: {action: "change->table#greet", 'table-target':"form"}  do |form| %>
+      <div class="flex flex-row items-start">
+        <table class="border-black shadow-md mx-16">
+          <tr>
+            <td
+              colspan="11"
+              class="
+                border px-1 py-2 bg-black text-white font-mono font-bold text-xs
+              "
+            >
+              <div class="flex-row justify-between w-full flex">
+                <button
+                  data-action="table#previous"
+                  type="button"
+                  data-table-target="back"
+                  class="disabled:text-slate-500"
+                >
+                  ←
+                </button>
+                <span data-table-target="roundLabel">Round 1</span>
+                <button
+                  data-action="table#next"
+                  type="button"
+                  data-table-target="front"
+                  class="disabled:text-slate-500"
+                >
+                  →
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Ovr</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">R</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">P</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team A</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team B</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs"></th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Ovr</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">R</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">P</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team A</th>
+            <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team B</th>
+          </tr>
+          <% (0..7).each do |round| %>
+            <% (1..16).each do |pick| %>
+              <tr class="hover:bg-slate-100" data-round="<%= round%>" data-table-target="row">
+                <td class="border px-1 "><%= round * 32 + pick %></td>
+                <td class="border px-1 "><%= round + 1 %></td>
+                <td class="border px-1 "><%= pick %></td>
+                <td class="border px-1"><%= form.check_box :team_a_picks,
+                                 {
+                                   multiple: true,
+                                   class:
+                                     "w-4 h-4  bg-gray-100 border-gray-300 rounded
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        focus:ring-blue-500 dark:focus:ring-blue-600
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:border-gray-600",
+                                 },
+                                 round * 32 + pick,
+                                 false %></td>
+                <td class="border px-1"><%= form.check_box :team_b_picks,
+                                 {
+                                   multiple: true,
+                                   class:
+                                     "w-4 h-4 bg-gray-100 border-gray-300 rounded text-pink-500
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        focus:ring-red-500 dark:focus:ring-blue-600
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:border-gray-600",
+                                 },
+                                 round * 32 + pick,
+                                 false %></td>
+                <td></td>
+                <td class="border px-1 "><%= round * 32 + pick + 16 %></td>
+                <td class="border px-1 "><%= round + 1 %></td>
+                <td class="border px-1 "><%= pick + 16 %></td>
+                <td class="border px-1"><%= form.check_box :team_a_picks,
+                                 {
+                                   multiple: true,
+                                   class:
+                                     "w-4 h-4  bg-gray-100 border-gray-300 rounded
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        focus:ring-blue-500 dark:focus:ring-blue-600
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:border-gray-600",
+                                 },
+                                 round * 32 + pick + 16,
+                                 false %></td>
+                <td class="border px-1"><%= form.check_box :team_b_picks,
+                                 {
+                                   multiple: true,
+                                   class:
+                                     "w-4 h-4 bg-gray-100 border-gray-300 rounded text-pink-500
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        focus:ring-red-500 dark:focus:ring-blue-600
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        dark:border-gray-600",
+                                 },
+                                 round * 32 + pick + 16,
+                                 false %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+
+        <div class="flex flex-col items-center space-y-2">
+          <h2 class="text-xl font-mono">
+            Results
+          </h2>
+          <table class="border-black shadow-md mx-16 font-mono text-xs">
+            <tr>
+              <th class="border px-1 py-4 bg-black text-white ">Team A</th>
+              <% @models.each do |model| %>
+                <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <td data-table-target="teamAPicks">temp</td>
+              <% @models.each do |model| %>
+                <td
+                  id="<%= "score-A-#{model.id}" %>"
+                  class="border px-1 py-4 font-mono text-xs"
+                  data-table-target="teamAScores"
+                >Test</td>
+              <% end %>
+            </tr>
+            <tr>
+              <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team B</th>
+              <% @models.each do |model| %>
+                <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <td data-table-target="teamBPicks">temp</td>
+              <% @models.each do |model| %>
+                <td
+                  id="<%= "score-B-#{model.id}" %>"
+                  class="border px-1 py-4 font-mono text-xs"
+                  data-table-target="teamBScores"
+                >Test</td>
+              <% end %>
+            </tr>
+          </table>
+          <div data-controller="hello">
+            <%= form.submit "Save Trade",
+                        data: {
+                          action: "click->hello#greet",
+                        },
+                        class:
+                          "
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        bg-black border-r-4 text-white px-6 py-2 font-mono m-8 hover:shadow-md
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        hover:text-yellow-100 " %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_11_214410) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_13_032826) do
+  create_table "trades", force: :cascade do |t|
+    t.text "team_a_picks"
+    t.text "team_b_picks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "value_model_picks", force: :cascade do |t|
     t.integer "value_model_id", null: false
     t.integer "pick"

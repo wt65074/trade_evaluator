@@ -5,10 +5,7 @@ export default class extends Controller {
   greet() {
     console.log("Hello, stimulus!", this.element)
     const formData = new FormData(this.formTarget);
-    console.log(formData);
-    const object = {};
-    formData.forEach((value, key) => object[key] = value);
-    const json = JSON.stringify(object);
-    console.log(json)
+    const picks = formData.get('picks')
+    console.log(picks);
   }
 }

@@ -15,4 +15,17 @@ class ValueModel < ApplicationRecord
       end
     end
   end
+
+  def score(picks_a, picks_b)
+    this_as_map = to_map
+
+    picks_a_score = picks_a.map { |pick| this_as_map[pick] }.sum
+    picks_b_score = picks_b.map { |pick| this_as_map[pick] }.sum
+
+    [picks_a_score, picks_b_score]
+  end
+
+  def to_map
+    value_model_pick.map { |x| [x.pick, x.value] }.to_h
+  end
 end

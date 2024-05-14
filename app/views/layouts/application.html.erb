@@ -12,28 +12,29 @@
   </head>
 
   <body>
-    <main class="h-screen"> 
+    <main class="h-screen">
       <div class="flex flex-col h-full">
-      <div class="flex shadow-sm py-4 flex-row items-center px-4 justify-between flex-shrink-0">
-        <div class="grow-0">
-          <h1 class="text-2xl font-mono font-bold block hover:underline no-underline"><%= link_to "Trade Evaluator", root_path %></h1>
+        <div
+          class="
+            flex shadow-sm py-4 flex-row items-center px-4 justify-between flex-shrink-0
+          "
+        >
+          <div class="grow-0">
+            <h1 class="text-2xl font-mono font-bold block hover:underline no-underline"><%= link_to "Trade Evaluator", root_path %></h1>
           </div>
 
-<div class="flex space-x-8">
-        <span class="font-mono align-middle hover:underline no-underline">
-          <%= link_to "Models", models_list_path %>
-          </span>
-                 <span class="font-mono">
-          Trades
-          </span>
-                 <span class="font-mono">
-          Etc
-          </span>
+          <div class="flex space-x-8">
+            <span class="font-mono align-middle hover:underline no-underline">
+              <%= link_to "Models", models_list_path %>
+            </span>
+            <span class="font-mono align-middle hover:underline no-underline">
+              <%= link_to "Trades", trades_path %>
+            </span>
           </div>
         </div>
         <div class="flex-shrink overflow-scroll">
-      <%= yield %>
-      </div>
+               <%= yield %>
+        </div>
       </div>
     </main>
   </body>
