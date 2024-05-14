@@ -18,9 +18,11 @@
     <% @trades.each do |trade| %>
       <tr>
         <td class="border px-1 py-2 font-mono text-xs">
+          <%= trade.team_a %><br/>
           <%= trade.team_a_picks.join(", ") %>
         </td>
         <td class="border px-1 py-2 font-mono text-xs">
+          <%= trade.team_b %><br/>
           <%= trade.team_b_picks.join(", ") %>
         </td>
         <% @models.each do |model| %>

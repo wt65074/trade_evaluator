@@ -1,14 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["row", "back", "front", "roundLabel", "form", "teamAPicks", "teamBPicks", "teamAScores", "teamBScores"]
+  static targets = ["rowA", "rowB", "back", "front", "roundLabel", "form", "teamAPicks", "teamBPicks", "teamAScores", "teamBScores", "teamA", "teamB", "checkboxA", "checkboxB"]
   static values = {
-    index: { type: Number, default: 0 }, models: { type: Array, default: [] }
+    index: { type: Number, default: 0 }, models: { type: Array, default: [] }, picksByTeam: { type: Object, default: {} },
+    teamA: String,
+    teamB: String
   }
 
   initialize() {
     this.showCurrentTable()
-    this.hideUselessButtons()
     this.greet()
   }
   next() {
@@ -19,39 +20,37 @@ export default class extends Controller {
     this.indexValue--
   }
 
-  indexValueChanged() {
-    this.showCurrentTable()
-    this.hideUselessButtons()
-  }
-
   showCurrentTable() {
-    this.rowTargets.forEach((element, index) => {
-      element.hidden = Number(element.dataset.round) !== this.indexValue
+    console.log(this.rowATargets)
+    this.rowATargets.forEach((element, index) => {
+      element.hidden = this.teamATarget.value ? !this.picksByTeamValue[this.teamATarget.value].includes(Number(element.dataset.pick)) : true
     })
-    this.hideUselessButtons()
-    this.roundLabelTarget.textContent = `Round ${this.indexValue + 1}`
+    this.rowBTargets.forEach((element, index) => {
+      element.hidden = this.teamBTarget.value ? !this.picksByTeamValue[this.teamBTarget.value].includes(Number(element.dataset.pick)) : true
+    })
   }
 
-  hideUselessButtons() {
-    this.frontTarget.disabled = this.indexValue === this.maxIndexValue();
-    this.backTarget.disabled = this.indexValue === 0;
+  teamAChanged() {
+    this.checkboxATargets.forEach((element, index) => {
+      element.checked = false
+    })
+    this.showCurrentTable()
   }
 
-  maxIndexValue() {
-    return Math.max(...this.rowTargets.map(element => Number(element.dataset.round))) - 1;
+  teamBChanged() {
+    this.checkboxBTargets.forEach((element, index) => {
+      element.checked = false
+    })
+    this.showCurrentTable()
   }
 
   greet() {
-    console.log("change data values")
     const formData = new FormData(this.formTarget);
-    console.log(Array.from(formData.entries()))
     const picksA = formData.getAll('trade[team_a_picks][]')
     const picksB = formData.getAll('trade[team_b_picks][]')
     this.teamAPicksTarget.textContent = `${picksA}`
     this.teamBPicksTarget.textContent = `${picksB}`
     this.modelsValue.forEach(model => {
-      console.log(this.modelsValue)
-      console.log(model)
       const id = model.id;
       const modelScores = model.values;
       const targetScoreA = this.teamAScoresTargets.find(el => el.id == `score-A-${id}`);

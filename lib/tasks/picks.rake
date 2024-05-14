@@ -22,7 +22,7 @@ namespace :picks do
     picks_to_upsert = picks_by_team.to_a.map do |key_and_v|
       {
         team: key_and_v[0],
-        picks: key_and_v[1],
+        picks: key_and_v[1].map(&:to_i),
         season: year
       }
     end

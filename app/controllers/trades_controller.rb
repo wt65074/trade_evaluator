@@ -3,7 +3,9 @@
 class TradesController < ApplicationController
   def show
     @models = ValueModel.all
-    @picks = PicksByTeamAndSeason.where(season: 2024)
+    @picks_by_team = PicksByTeamAndSeason.where(season: 2024)
+    @all_picks = @picks_by_team.flat_map(&:picks).sort
+
     @trade = if params[:id].nil?
                Trade.new
              else
@@ -14,6 +16,9 @@ class TradesController < ApplicationController
 
   def new
     @models = ValueModel.all
+    @picks_by_team = PicksByTeamAndSeason.where(season: 2024)
+    @all_picks = @picks_by_team.flat_map(&:picks).sort
+    puts @all_picks
     @trade = if params[:id].nil?
                Trade.new
              else
