@@ -36,7 +36,7 @@ class TradesController < ApplicationController
   def create
     trade = Trade.new(trade_params)
     if trade.save
-      redirect_to trade
+      redirect_to trade, notice: 'Trade Saved'
     else
       render :show, status: :unprocessable_entity
     end
