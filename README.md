@@ -1,5 +1,20 @@
 # README
 
+## Updates
+This was a first rails project for me so theres a number of things in here I am hoping to refactor
+### Technical
+- [x] refactor stimulus controllers to seperate responsibilies
+- [ ] refactor erb files to reduce duplication
+- [ ] fix overfetching of data during trade display using memoization or caching
+- [ ] update data model for picks to be more robust and to handle the comp picks situation
+- [ ] update the team picks model so that it can take multiple seasons
+- [ ] remove redundant routing
+
+### UX
+- [ ] Allow users to upload files to create a new season
+- [ ] improve the clarity of winner/loser scores
+- [ ] improve team name to be short form and include iocns
+
 ## Running
 Im running on Ruby 3.3.1.
 
