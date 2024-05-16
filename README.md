@@ -9,6 +9,7 @@ This was a first rails project for me so theres a number of things in here I am 
 - [ ] update data model for picks to be more robust and to handle the comp picks situation
 - [ ] update the team picks model so that it can take multiple seasons
 - [ ] remove redundant routing
+- [ ] form validation messages!
 
 ### UX
 - [ ] Allow users to upload files to create a new season
