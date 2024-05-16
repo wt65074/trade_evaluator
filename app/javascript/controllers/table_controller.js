@@ -11,7 +11,8 @@ export default class extends Controller {
   static outlets = ['results', 'picks'];
 
   connect() {
-    this.picksOutlets.forEach(o => o.teamChanged([]))
+    this.updateTeams()
+    this.updatePicks()
   }
 
   teamAChanged() {
