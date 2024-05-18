@@ -1,0 +1,43 @@
+<div class="space-y-4">
+  <%= form.label field, teamLabel, class: "font-mono text-s" %>
+  <%= form.text_field teamField,
+                  list: "team-#{team}",
+                  class: "font-mono text-xs border-2 border-black",
+                  data: {
+                    action: changeTeamAction,
+                    "table-target": tableTarget,
+                  } %>
+  <datalist id="<%= "team-#{team}"%>">
+    <% @picks_by_team.map { |team| team.team }.each do |team| %>
+      <option value="<%= team %>"></option>
+    <% end %>
+  </datalist>
+  <table
+    id="<%= picksControllerId%>"
+    class="picks border-black shadow-md mx-16 font-mono"
+    data-controller="picks"
+  >
+    <tr>
+      <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Ovr</th>
+      <th class="border px-1 py-4 bg-black text-white font-mono text-xs">R</th>
+      <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Trade</th>
+    </tr>
+    <% all_picks.each do |pick| %>
+      <tr class="hover:bg-slate-100" data-pick="<%= pick%>" data-picks-target="row">
+        <td class="border px-1 "><%= pick %></td>
+        <td class="border px-1 "><%= pick / 32 + 1 %></td>
+        <td class="border px-1"><%= form.check_box field,
+                         {
+                           data: {
+                             "picks-target": "checkbox",
+                           },
+                           multiple: true,
+                           class:
+                             "w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ",
+                         },
+                         pick,
+                         false %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

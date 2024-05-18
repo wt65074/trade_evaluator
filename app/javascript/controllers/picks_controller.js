@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["row", "checkbox"];
 
   teamChanged(picksToShow) {
-    console.log(picksToShow)
     this.clearSelections()
     this.showRows(picksToShow)
   }

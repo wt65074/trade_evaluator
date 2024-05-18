@@ -17,17 +17,24 @@ export default class extends Controller {
 
   teamAChanged() {
     this.updateTeams()
+    const outlet = this.picksOutlets.find(outlet => outlet.element.id == 'picks-team-a')
+    this.clearPicks(outlet)
   }
 
   teamBChanged() {
     this.updateTeams()
+    const outlet = this.picksOutlets.find(outlet => outlet.element.id == 'picks-team-b')
+    this.clearPicks(outlet)
+  }
+
+  clearPicks(outlet) {
+    outlet.clearSelections()
   }
 
   updatePicks() {
     const formData = new FormData(this.formTarget);
     const picksA = formData.getAll('trade[team_a_picks][]')
     const picksB = formData.getAll('trade[team_b_picks][]')
-    console.log(picksA, picksB)
     this.resultsOutlet.picksUpdated(picksA, picksB)
   }
 
