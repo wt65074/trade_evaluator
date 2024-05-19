@@ -1,50 +1,46 @@
-<div class="self-center items-center flex flex-col space-y-8 my-16">
-  <div class="flex items-center flex-col max-w-1/2">
-    <h1 class="font-bold font-mono text-4xl mb-2">New Model</h1>
-    <h2 class="font-medium font-mono text-s text-slate-800 text-center mb-8">
-      Expected file format:
-      <ul>
-        <li>
-          * CSV File
-        </li>
-        <li>
-          * Headers included, "pick", "value"
-        </li>
-        <li>
-          * Pick is first row, value is overall pick
-        </li>
-        <li>
-          * Value is second row, expressed as number
-        </li>
-        <li>
-          * 262 rows, which includes 39 compensatory picks even though this
-          tool doesn't really support that.
-        </li>
-      </ul>
-    </h2>
+<% content_for :title do %>
+  New Model
+<% end %>
+<% content_for :subtitle do %>
+  Expected file format:
+  <ul>
+    <li>
+      * CSV File
+    </li>
+    <li>
+      * Headers included, "pick", "value"
+    </li>
+    <li>
+      * Pick is first row, value is overall pick
+    </li>
+    <li>
+      * Value is second row, expressed as number
+    </li>
+    <li>
+      * 262 rows, which includes 39 compensatory picks even though this tool
+      doesn't really support that.
+    </li>
+  </ul>
+<% end %>
+<%= form_with url: models_create_path, multipart: true, local: true do |form| %>
+  <div class="rounded space-y-4 font-mono flex flex-col items-center">
+    <div>
+      <%= file_field_tag "file", allow: "text/csv", required: true %>
 
-    <%= form_with url: models_create_path, multipart: true, local: true do |form| %>
-      <div class="rounded space-y-4 font-mono flex flex-col items-center">
-        <div>
-          <%= file_field_tag "file", allow: "text/csv", required: true %>
-
-          <% @model.errors.full_messages_for(:base).each do |message| %>
-            <div class="text-xs text-red-600 mt-2"><%= message %></div>
-          <% end %>
-        </div>
-        <div>
-          <%= form.label :title, "Model Name:" %>
-          <%= form.text_field :title, required: true, class: "border-2 border-black" %>
-          <% @model.errors.full_messages_for(:name).each do |message| %>
-            <div class="text-xs text-red-600"><%= message %></div>
-          <% end %>
-        </div>
-        <%= form.submit "Create",
-                    class:
-                      "bg-black font-large font-mono text-white px-4 py-2 hover:shadow-lg disabled:bg-blue" %>
-
-      </div>
-    <% end %>
+      <% @model.errors.full_messages_for(:base).each do |message| %>
+        <div class="text-xs text-red-600 mt-2"><%= message %></div>
+      <% end %>
+    </div>
+    <div>
+      <%= form.label :title, "Model Name:" %>
+      <%= form.text_field :title, required: true, class: "border-2 border-black" %>
+      <% @model.errors.full_messages_for(:name).each do |message| %>
+        <div class="text-xs text-red-600"><%= message %></div>
+      <% end %>
+    </div>
+    <%= form.submit "Create",
+                class:
+                  "bg-black font-large font-mono text-white px-4 py-2 hover:shadow-lg disabled:bg-blue" %>
 
   </div>
-</div>
+<% end %>

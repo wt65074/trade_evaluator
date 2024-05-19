@@ -3,10 +3,12 @@
 class ModelsController < ApplicationController
   def new
     @model = ValueModel.new
+    render layout: 'content'
   end
 
   def list
     @models = ValueModel.all
+    render layout: 'content'
   end
 
   def show; end

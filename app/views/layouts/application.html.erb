@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="flex-shrink overflow-scroll">
-               <%= yield %>
+                <%= content_for?(:body) ? yield(:body) : yield %>
         </div>
       </div>
     </main>

@@ -1,0 +1,12 @@
+<% content_for :body do %>
+<div class="self-center items-center flex flex-col space-y-8 my-16">
+  <div class="flex items-center flex-col max-w-1/2">
+    <h1 class="font-bold font-mono text-4xl mb-2"><%= yield :title %></h1>
+    <h2 class="font-medium font-mono text-s text-slate-800 text-center">
+    <%= yield :subtitle%>
+    </h2>
+  </div>
+  <%= yield %>
+</div>
+<% end %>
+<%= render template: "layouts/application" %>

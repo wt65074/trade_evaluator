@@ -1,43 +1,41 @@
-<div class="self-center items-center flex flex-col space-y-8 my-16">
-  <div class="flex items-center flex-col max-w-1/2">
-    <h1 class="font-bold font-mono text-4xl mb-2">Your Models</h1>
-    <h2 class="font-medium font-mono text-s text-slate-800 text-center">
-      Five models are default seeded from
-      <a
-        class="hover:underline text-link"
-        href="https://raw.githubusercontent.com/leesharpe/nfldata/master/data/draft_values.csv"
-      >
-        this kind github</a>.<br/>
-      You can add new models
-      <%= link_to "here", models_new_path, class: "text-link hover:underline" %>.
-    </h2>
-  </div>
-  <table class="border-black shadow-md ">
+<% content_for :title do %>
+  Your Models
+<% end %>
+<% content_for :subtitle do %>
+  Five models are default seeded from
+  <a
+    class="hover:underline text-link"
+    href="https://raw.githubusercontent.com/leesharpe/nfldata/master/data/draft_values.csv"
+  >
+    this kind github</a>.<br/>
+  You can add new models
+  <%= link_to "here", models_new_path, class: "text-link hover:underline" %>.
+<% end %>
+<table class="border-black shadow-md ">
+  <tr>
+    <th class="border px-2 py-2 bg-black text-white font-mono font-bold text-l">
+      Model Name
+    </th>
+    <th class="border px-2 py-2 bg-black text-white font-mono font-bold text-l">
+    </th>
+  </tr>
+  <% @models.each do |model| %>
     <tr>
-      <th class="border px-2 py-2 bg-black text-white font-mono font-bold text-l">
-        Model Name
-      </th>
-      <th class="border px-2 py-2 bg-black text-white font-mono font-bold text-l">
-      </th>
+      <td class="font-medium font-mono border px-1">
+        <%= model.name %>
+      </td>
+      <td class="font-mono px-2 border space-x-2">
+        <%= link_to "Download",
+        models_download_path(model.id),
+        class: "text-link hover:underline" %>
+        <%= link_to "Delete",
+        models_delete_path(model.id),
+        class: "text-link-destructive hover:underline",
+        data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?",
+        } %>
+      </td>
     </tr>
-    <% @models.each do |model| %>
-      <tr>
-        <td class="font-medium font-mono border px-1">
-          <%= model.name %>
-        </td>
-        <td class="font-mono px-2 border space-x-2">
-          <%= link_to "Download",
-          models_download_path(model.id),
-          class: "text-link hover:underline" %>
-          <%= link_to "Delete",
-          models_delete_path(model.id),
-          class: "text-link-destructive hover:underline",
-          data: {
-            turbo_method: :delete,
-            turbo_confirm: "Are you sure?",
-          } %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>

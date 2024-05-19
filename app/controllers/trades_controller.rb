@@ -12,6 +12,8 @@ class TradesController < ApplicationController
                Trade.find(params[:id]).dup
 
              end
+
+    render layout: 'content'
   end
 
   def new
@@ -25,12 +27,13 @@ class TradesController < ApplicationController
                Trade.find(params[:id]).dup
 
              end
-    render :show
+    render :show, layout: 'content'
   end
 
   def index
     @trades = Trade.all.order('created_at DESC')
     @models = ValueModel.all
+    render layout: 'content'
   end
 
   def create
