@@ -4,7 +4,7 @@ class Trade < ApplicationRecord
   validates :team_a, :team_b, presence: true
 
   def all_model_scores
-    all_models = ValueModel.all
+    all_models = ValueModel.all_models_cached
     all_models.map { |m| [m.id, m.score(team_a_picks, team_b_picks)] }.to_h
   end
 end

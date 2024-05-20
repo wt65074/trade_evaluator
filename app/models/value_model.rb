@@ -6,6 +6,8 @@ class ValueModel < ApplicationRecord
 
   validates :name, uniqueness: { message: 'must be unique' }
 
+  @cached_models_as_map = {}
+
   def to_csv
     CSV.generate do |csv|
       column_names = %w[pick value]
@@ -26,6 +28,20 @@ class ValueModel < ApplicationRecord
   end
 
   def to_map
+    self.class.cached_models_as_map[id] ||= to_map_impl
+  end
+
+  class << self
+    attr_reader :cached_models_as_map
+  end
+
+  def self.all_models_cached
+    @all_models_cached ||= all
+  end
+
+  private
+
+  def to_map_impl
     value_model_pick.map { |x| [x.pick, x.value] }.to_h
   end
 end
