@@ -1,111 +1,110 @@
-  <% content_for :title do %>
-    Create Trade
-  <% end %>
-  <% content_for :subtitle do %>
+<% content_for :title do %>
+  Create Trade
+<% end %>
+<% content_for :subtitle do %>
   Choose a team to see their 2024 picks.<br/>
-      When loading a trade, saving it will create a new one not modify the
-      old.
-      <% end %>
-  <div
-    data-controller="table"
-    data-table-picks-by-team-value="<%= @picks_by_team.map {|v| [v.team, v.picks]}.to_h.to_json %>"
-    data-table-picks-outlet="[class~=picks]"
-    data-table-results-outlet="#results"
-  >
-    <%= form_with model: @trade, data: {action: "change->table#updatePicks", 'table-target':"form"}  do |form| %>
-      <div class="flex flex-row items-start space-x-8">
-        <%= render partial: "partials/pick_picker",
-        locals: {
-          form: form,
-          all_picks: @all_picks,
-          field: :team_a_picks,
-          teamField: :team_a,
-          team: "a",
-          changeTeamAction: "change->table#teamAChanged",
-          tableTarget: "teamA",
-          teamLabel: "Team A",
-          picksControllerId: "picks-team-a",
-        } %>
-        <%= render partial: "partials/pick_picker",
-        locals: {
-          form: form,
-          all_picks: @all_picks,
-          field: :team_b_picks,
-          teamField: :team_b,
-          team: "b",
-          changeTeamAction: "change->table#teamBChanged",
-          tableTarget: "teamB",
-          teamLabel: "Team B",
-          picksControllerId: "picks-team-b",
-        } %>
-        <div
-          id="results"
-          class="flex flex-row items-start"
-          data-controller="results"
-          data-results-models-value="<%= @models.map { |m| { "id" => m.id, "values" => m.to_map} }.to_json%>"
-        >
-          <div class="flex flex-col items-center space-y-2">
-            <h2 class="text-xl font-mono">
-              Results
-            </h2>
-            <h3 class="font-mono text-xs text-slate-700">
-              Showing net score ie Opposing Team Value - Team Value.
-            </h3>
-            <table class="border-black shadow-md mx-16 font-mono text-xs">
-              <tr>
-                <th class="border px-1 py-4 bg-black text-white ">Team A</th>
-                <% @models.each do |model| %>
-                  <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
-                <% end %>
-              </tr>
-              <tr>
-                <td data-results-target="teamAPicks">temp</td>
-                <% @models.each do |model| %>
-                  <td
-                    id="<%= "score-A-#{model.id}" %>"
-                    class="border px-1 py-4 font-mono text-xs"
-                    data-results-target="teamAScore"
-                    data-model-id="<%= "#{model.id}"%>"
-                  >Test</td>
-                <% end %>
-              </tr>
-              <tr>
-                <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team B</th>
-                <% @models.each do |model| %>
-                  <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
-                <% end %>
-              </tr>
-              <tr>
-                <td data-results-target="teamBPicks">temp</td>
-                <% @models.each do |model| %>
-                  <td
-                    class="border px-1 py-4 font-mono text-xs"
-                    data-results-target="teamBScore"
-                    data-model-id="<%= "#{model.id}" %>"
-                  >Test</td>
-                <% end %>
-              </tr>
-            </table>
-            <div data-controller="hello" class="flex flex-col items-center space-y-2 pt-2">
-              <%= form.submit "Save Trade",
-                          data: {
-                            action: "click->hello#greet",
-                          },
-                          class:
-                            "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      bg-black border-r-4 text-white px-6 py-2 font-mono hover:shadow-md
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      hover:text-yellow-100 " %>
-              <div data-controller="dissapearing">
-                <% flash.each do |flash_type, message| %>
-                  <div data-dissapearing-target="main" class="font-mono text-xs text-green-500">
-                    &#10003;
-                    <%= message %>
-                  </div>
-                <% end %>
-              </div>
+  When loading a trade, saving it will create a new one not modify the old.
+<% end %>
+<div
+  data-controller="table"
+  data-table-picks-by-team-value="<%= @picks_by_team.map {|k, v| [k.shortname, v.map(&:overall)]}.to_h.to_json %>"
+  data-table-picks-outlet="[class~=picks]"
+  data-table-results-outlet="#results"
+>
+  <%= form_with model: @trade, data: {action: "change->table#updatePicks", 'table-target':"form"}  do |form| %>
+    <div class="flex flex-row items-start space-x-8">
+      <%= render partial: "partials/pick_picker",
+      locals: {
+        form: form,
+        all_picks: @all_picks,
+        field: :team_a_picks,
+        teamField: :team_a,
+        team: "a",
+        changeTeamAction: "change->table#teamAChanged",
+        tableTarget: "teamA",
+        teamLabel: "Team A",
+        picksControllerId: "picks-team-a",
+      } %>
+      <%= render partial: "partials/pick_picker",
+      locals: {
+        form: form,
+        all_picks: @all_picks,
+        field: :team_b_picks,
+        teamField: :team_b,
+        team: "b",
+        changeTeamAction: "change->table#teamBChanged",
+        tableTarget: "teamB",
+        teamLabel: "Team B",
+        picksControllerId: "picks-team-b",
+      } %>
+      <div
+        id="results"
+        class="flex flex-row items-start"
+        data-controller="results"
+        data-results-models-value="<%= @models.map { |m| { "id" => m.id, "values" => m.to_map} }.to_json%>"
+      >
+        <div class="flex flex-col items-center space-y-2">
+          <h2 class="text-xl font-mono">
+            Results
+          </h2>
+          <h3 class="font-mono text-xs text-slate-700">
+            Showing net score ie Opposing Team Value - Team Value.
+          </h3>
+          <table class="border-black shadow-md mx-16 font-mono text-xs">
+            <tr>
+              <th class="border px-1 py-4 bg-black text-white ">Team A</th>
+              <% @models.each do |model| %>
+                <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <td data-results-target="teamAPicks">temp</td>
+              <% @models.each do |model| %>
+                <td
+                  id="<%= "score-A-#{model.id}" %>"
+                  class="border px-1 py-4 font-mono text-xs"
+                  data-results-target="teamAScore"
+                  data-model-id="<%= "#{model.id}"%>"
+                >Test</td>
+              <% end %>
+            </tr>
+            <tr>
+              <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Team B</th>
+              <% @models.each do |model| %>
+                <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <td data-results-target="teamBPicks">temp</td>
+              <% @models.each do |model| %>
+                <td
+                  class="border px-1 py-4 font-mono text-xs"
+                  data-results-target="teamBScore"
+                  data-model-id="<%= "#{model.id}" %>"
+                >Test</td>
+              <% end %>
+            </tr>
+          </table>
+          <div data-controller="hello" class="flex flex-col items-center space-y-2 pt-2">
+            <%= form.submit "Save Trade",
+                        data: {
+                          action: "click->hello#greet",
+                        },
+                        class:
+                          "
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bg-black border-r-4 text-white px-6 py-2 font-mono hover:shadow-md
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              hover:text-yellow-100 " %>
+            <div data-controller="dissapearing">
+              <% flash.each do |flash_type, message| %>
+                <div data-dissapearing-target="main" class="font-mono text-xs text-green-500">
+                  &#10003;
+                  <%= message %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>

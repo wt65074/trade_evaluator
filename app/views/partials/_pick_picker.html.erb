@@ -8,7 +8,7 @@
                     "table-target": tableTarget,
                   } %>
   <datalist id="<%= "team-#{team}"%>">
-    <% @picks_by_team.map { |team| team.team }.each do |team| %>
+    <% @teams.map { |team| team.shortname }.each do |team| %>
       <option value="<%= team %>"></option>
     <% end %>
   </datalist>
@@ -23,9 +23,13 @@
       <th class="border px-1 py-4 bg-black text-white font-mono text-xs">Trade</th>
     </tr>
     <% all_picks.each do |pick| %>
-      <tr class="hover:bg-slate-100" data-pick="<%= pick%>" data-picks-target="row">
-        <td class="border px-1 "><%= pick %></td>
-        <td class="border px-1 "><%= pick / 32 + 1 %></td>
+      <tr
+        class="hover:bg-slate-100"
+        data-pick="<%= pick.overall%>"
+        data-picks-target="row"
+      >
+        <td class="border px-1 "><%= pick.overall %></td>
+        <td class="border px-1 "><%= pick.round %></td>
         <td class="border px-1"><%= form.check_box field,
                          {
                            data: {
@@ -35,7 +39,7 @@
                            class:
                              "w-4 h-4 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 ",
                          },
-                         pick,
+                         pick.overall,
                          false %></td>
       </tr>
     <% end %>
