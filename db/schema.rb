@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_050137) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_24_011323) do
+  create_table "draft_picks", force: :cascade do |t|
+    t.integer "round"
+    t.integer "overall"
+    t.integer "year"
+    t.string "team"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["overall", "year"], name: "index_draft_picks_on_overall_and_year", unique: true
+    t.index ["team"], name: "index_draft_picks_on_team"
+  end
+
   create_table "picks_by_team_and_seasons", force: :cascade do |t|
     t.string "team"
     t.text "picks"
@@ -18,6 +29,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_050137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["season", "team"], name: "index_picks_by_team_and_seasons_on_season_and_team", unique: true
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "shortname", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shortname"], name: "index_teams_on_shortname", unique: true
   end
 
   create_table "trades", force: :cascade do |t|

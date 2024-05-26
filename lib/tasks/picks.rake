@@ -12,22 +12,18 @@ namespace :picks do
 
     table = T.cast(CSV.parse(file_contents, converters: :numeric), T::Array[T::Array[T.untyped]])
 
-    picks_by_team = table.each_with_object({}) do |(num, str), acc|
-      acc[str] ||= []
-      acc[str] << num
-    end
-
-    puts "Got #{picks_by_team.keys.length} teams"
-
-    picks_to_upsert = picks_by_team.to_a.map do |key_and_v|
+    picks_to_upsert = table.map do |(pick, round, team)|
       {
-        team: key_and_v[0],
-        picks: key_and_v[1].map(&:to_i),
-        season: year
+        team:,
+        round:,
+        overall: pick,
+        year:
       }
     end
 
-    PicksByTeamAndSeason.upsert_all(picks_to_upsert, unique_by: %w[team season])
-    p "Created #{PicksByTeamAndSeason.where(season: year).count} model entries"
+    puts "Got #{picks_to_upsert.length} picks"
+
+    DraftPick.upsert_all(picks_to_upsert, unique_by: %w[overall year])
+    p "Created #{DraftPick.where(year:).count} model entries"
   end
 end
