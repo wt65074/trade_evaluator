@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_24_011323) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_004154) do
   create_table "draft_picks", force: :cascade do |t|
     t.integer "round"
     t.integer "overall"
@@ -65,5 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_24_011323) do
     t.index ["name"], name: "index_value_models_on_name", unique: true
   end
 
+  add_foreign_key "draft_picks", "teams", column: "team", primary_key: "shortname"
   add_foreign_key "value_model_picks", "value_models"
 end
