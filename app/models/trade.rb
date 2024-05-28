@@ -9,4 +9,12 @@ class Trade < ApplicationRecord
     all_models = ValueModel.all_models_cached
     all_models.map { |m| [m.id, m.score(team_a_picks, team_b_picks)] }.to_h
   end
+
+  def team_a_shortname
+    team_a.shortname
+  end
+
+  def team_b_shortname
+    team_b.shortname
+  end
 end

@@ -25,7 +25,6 @@ class TradesController < ApplicationController
                Trade.new
              else
                Trade.find(params[:id]).dup
-
              end
     render :show, layout: 'content'
   end
@@ -37,7 +36,14 @@ class TradesController < ApplicationController
   end
 
   def create
-    trade = Trade.new(trade_params)
+    safe_params = trade_params
+    team_a = Team.find(safe_params[:team_a_shortname])
+    team_b = Team.find(safe_params[:team_b_shortname])
+    safe_params.delete(:team_a_shortname)
+    safe_params.delete(:team_b_shortname)
+    trade = Trade.new(safe_params.merge(team_a:, team_b:, team_a_picks: safe_params[:team_a_picks].map(&:to_i),
+                                        team_b_picks: safe_params[:team_b_picks].map(&:to_i)))
+    trade.save
     if trade.save
       redirect_to trade, notice: 'Trade Saved'
     else
@@ -55,8 +61,6 @@ class TradesController < ApplicationController
 
   def trade_params
     # pretty sure this aint best practice
-    params[:trade][:team_a_picks] = params[:trade][:team_a_picks].map(&:to_i)
-    params[:trade][:team_b_picks] = params[:trade][:team_b_picks].map(&:to_i)
-    params.require(:trade).permit(:team_a, :team_b, team_a_picks: [], team_b_picks: [])
+    params.require(:trade).permit(:team_a_shortname, :team_b_shortname, team_a_picks: [], team_b_picks: [])
   end
 end
