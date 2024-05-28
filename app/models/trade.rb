@@ -11,10 +11,10 @@ class Trade < ApplicationRecord
   end
 
   def team_a_shortname
-    team_a.shortname
+    team_a&.shortname
   end
 
   def team_b_shortname
-    team_b.shortname
+    team_b&.shortname
   end
 end
