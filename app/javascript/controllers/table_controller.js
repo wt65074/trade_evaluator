@@ -8,7 +8,7 @@ export default class extends Controller {
     teamB: String
   }
 
-  static outlets = ['results', 'picks'];
+  static outlets = ['results', 'picks', 'image-provider'];
 
   connect() {
     this.updateTeams()
@@ -43,6 +43,8 @@ export default class extends Controller {
     const teamB = this.teamBTarget.value
     const teamAPicks = teamA ? this.picksByTeamValue[teamA] : []
     const teamBPicks = teamB ? this.picksByTeamValue[teamB] : []
+    this.imageProviderOutlet.teamAChanged(this.teamATarget.value)
+    this.imageProviderOutlet.teamBChanged(this.teamBTarget.value)
     this.picksOutlets.forEach(picksController => {
       picksController.showRows(
         picksController.element.id == "picks-team-a" ? teamAPicks : teamBPicks)
