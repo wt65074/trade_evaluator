@@ -28,7 +28,6 @@ class ValueModel < ApplicationRecord
   end
 
   def to_map
-    puts to_map_impl, self.class.cached_models_as_map
     self.class.cached_models_as_map[id] ||= to_map_impl
   end
 

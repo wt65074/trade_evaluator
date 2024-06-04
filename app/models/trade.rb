@@ -1,7 +1,8 @@
 class Trade < ApplicationRecord
   serialize :team_a_picks, coder: JSON, type: Array
   serialize :team_b_picks, coder: JSON, type: Array
-  validates :team_a, :team_b, presence: true
+  validates_associated :team_a
+  validates_associated :team_b
   belongs_to :team_a, class_name: 'Team', foreign_key: 'team_a', primary_key: 'shortname'
   belongs_to :team_b, class_name: 'Team', foreign_key: 'team_b', primary_key: 'shortname'
 

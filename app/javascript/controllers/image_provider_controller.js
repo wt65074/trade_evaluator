@@ -8,9 +8,15 @@ export default class extends Controller {
   };
 
   teamAChanged(team) {
-    this.teamATargets.forEach(elem => elem.src = this.imagePathsValue[team])
+    this.teamATargets.forEach(elem => this.setIconForTarget(team, elem));
   }
   teamBChanged(team) {
-    this.teamBTargets.forEach(elem => elem.src = this.imagePathsValue[team])
+    this.teamBTargets.forEach(elem => this.setIconForTarget(team, elem));
+  }
+
+  setIconForTarget(team, target) {
+    console.log(`team: ${team.length} ${team ?? 'empty'} temp`)
+    console.log(this.imagePathsValue)
+    target.src = this.imagePathsValue[team ? team : 'empty']
   }
 }
