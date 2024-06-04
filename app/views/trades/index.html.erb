@@ -17,18 +17,27 @@
   <% @trades.each do |trade| %>
     <tr>
       <td class="border px-1 py-2 font-mono text-xs">
-        <%= trade.team_a_shortname %><br/>
-        <%= trade.team_a_picks.join(", ") %>
+        <div class="flex flex-row gap-2">
+          <img src="<%= image_path(trade.team_a.image_path) %>" class="size-4"/>
+          <%= trade.team_a_picks.join(", ") %>
+        </div>
       </td>
       <td class="border px-1 py-2 font-mono text-xs">
-        <%= trade.team_b_shortname %><br/>
-        <%= trade.team_b_picks.join(", ") %>
+        <div class="flex flex-row gap-2">
+          <img src="<%= image_path(trade.team_b.image_path) %>" class="size-4"/>
+          <%= trade.team_b_picks.join(", ") %>
+        </div>
       </td>
       <% @models.each do |model| %>
         <% model_score = trade.all_model_scores[model.id] %>
         <td class="border px-1 py-4 font-mono text-xs">
-          <%= model_score[0] > model_score[1] ? "Team A" : "Team B" %>
-          <%= "+#{(model_score[0] - model_score[1]).abs}" %>
+          <div class="flex flex-row gap-2">
+            <img
+              src="<%= image_path(  model_score[0] < model_score[1] ? trade.team_a.image_path : trade.team_b.image_path) %>"
+              class="size-4"
+            />
+            <%= "+#{(model_score[0] - model_score[1]).abs}" %>
+          </div>
         </td>
       <% end %>
       <td class="border px-1 py-4 font-mono text-xs text-link">
