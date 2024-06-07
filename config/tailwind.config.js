@@ -17,7 +17,14 @@ module.exports = {
         link: {
           DEFAULT: colors.blue[500],
           destructive: colors.red[500]
-        }
+        },
+        transparent: 'transparent',
+        current: 'currentColor',
+        black: colors.black,
+        white: colors.white,
+        gray: colors.gray,
+        red: colors.red,
+        yellow: colors.yellow,
       }
     },
     maxWidth: {
