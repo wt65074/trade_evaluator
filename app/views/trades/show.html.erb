@@ -62,21 +62,22 @@
               <tr>
                 <th class="border px-1 py-4 bg-black text-white flex justify-center">
                   <img
-                    src class="size-6" data-image-provider-target="teamA"/>
+                     class="size-6" data-image-provider-target="teamA"  src=<%= image_path(@trade.team_a? ? @trade.team_a.image_path : 'logos/empty.png')%>/>
+                </th>
                 </th>
                 <% @models.each do |model| %>
                   <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
                 <% end %>
               </tr>
               <tr>
-                <td data-results-target="teamAPicks">temp</td>
+                <td data-results-target="teamAPicks"></td>
                 <% @models.each do |model| %>
                   <td
                     id="<%= "score-A-#{model.id}" %>"
                     class="border px-1 py-4 font-mono text-xs"
                     data-results-target="teamAScore"
                     data-model-id="<%= "#{model.id}"%>"
-                  >Test</td>
+                  >0</td>
                 <% end %>
               </tr>
               <tr>
@@ -86,19 +87,19 @@
                   "
                 >
                   <img
-                    src class="size-6" data-image-provider-target="teamB"/></th>
+                     class="size-6" data-image-provider-target="teamB" src=<%= image_path(@trade.team_b? ? @trade.team_b.image_path : 'logos/empty.png')%>/></th>
                 <% @models.each do |model| %>
                   <th class="border px-1 py-4 bg-black text-white font-mono text-xs"><%= model.name %></th>
                 <% end %>
               </tr>
               <tr>
-                <td data-results-target="teamBPicks">temp</td>
+                <td data-results-target="teamBPicks"></td>
                 <% @models.each do |model| %>
                   <td
                     class="border px-1 py-4 font-mono text-xs"
                     data-results-target="teamBScore"
                     data-model-id="<%= "#{model.id}" %>"
-                  >Test</td>
+                  >0</td>
                 <% end %>
               </tr>
             </table>
